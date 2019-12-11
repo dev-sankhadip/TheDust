@@ -9,7 +9,6 @@ The Dust a Blogging site for users built in React+Graphql and Node.JS and MongoD
 
 <br>
 
-
 ## Tools used
 * NodeJS, React.JS, Graphql
 * Database - MongoDB
