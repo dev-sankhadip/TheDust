@@ -1,7 +1,3 @@
-import React from 'react';
-import { Redirect } from 'react-router-dom';
-
-
 //this is function is being used to check if user is valid
 const CheckAuth=()=>{
     const token=localStorage.getItem("token");

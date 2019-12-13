@@ -9,7 +9,6 @@ module.exports={
         const uid=request.userId;
         return BlogModel.find({ creator:uid })
         .then((blogs)=>{
-            console.log(blogs);
             return blogs.map(blog=>{
                 return {...blog._doc, _id:blog.id};
             })

@@ -3,7 +3,7 @@ const graphqlHttp=require('express-graphql');
 const mongoose=require('mongoose');
 
 //get graphql resolvers and schema
-const graphqlSchema=require('./graphql/schema/index');
+const { schema }=require('./graphql/schema/index');
 const graphqlResolvers=require('./graphql/resolvers/rootResolver');
 
 //get jsonwebtoken auth checking module
@@ -13,8 +13,8 @@ const isAuth=require('./middleware/is-auth');
 const app = express();
 
 //set all middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({ limit:'10mb' }));
+app.use(express.urlencoded({ extended: true, limit:'10mb' }));
 app.use(isAuth);
 
 //allow header and options method
@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 app.use(
   '/graphql',
   graphqlHttp({
-    schema: graphqlSchema,
+    schema: schema,
     rootValue: graphqlResolvers,
     graphiql: true
   })

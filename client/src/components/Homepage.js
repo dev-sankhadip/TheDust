@@ -1,6 +1,5 @@
 import React,{ useEffect, useState } from 'react';
-import {Redirect} from 'react-router-dom'
-import AuthContext from '../context/auth-context'
+// import AuthContext from '../context/auth-context'
 import NavbarComponent from './navbar/navbar';
 import Blog from './blog/blog';
 
@@ -44,11 +43,6 @@ const Homepage=(props)=>
       console.log(err);
     })
 
-  }
-
-  const logout=()=>{
-    localStorage.removeItem("token");
-    props.history.push("/");
   }
   
   useEffect(()=>{

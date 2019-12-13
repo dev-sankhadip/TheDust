@@ -6,6 +6,7 @@
     "start": "nodemon app.js"
   },
   "dependencies": {
+    "apollo-server-express": "^2.9.13",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "~4.16.1",
