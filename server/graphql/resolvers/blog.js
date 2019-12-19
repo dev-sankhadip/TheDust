@@ -32,5 +32,16 @@ module.exports={
         const result=await blog.save();
         console.log(result);
         return {...result._doc};
+    },
+    getAllBlogs: async (args, request)=>{
+        return BlogModel.find()
+        .then((blogs)=>{
+            console.log(blogs);
+            return blogs.map(blog=>{
+                return {...blog._doc, _id:blog.id};
+            })
+        }).catch((err)=>{
+            console.log(err);
+        })
     }
 }

@@ -12,7 +12,7 @@ const Blog=(props)=>
                     <div className="ui divided items">
                             <div className="item">
                                 <div className="image">
-                                    <img className="ui rounded image" src={ item.image } />
+                                    <img className="ui rounded image" src={ item.image } alt="pic" />
                                 </div>
                                 <div className="content">
                                     <Link className="header" to={ '/blog/'+item._id } >{ item.title }</Link>
@@ -42,4 +42,4 @@ const Blog=(props)=>
     )
 }
 
-export default Blog;
+export default React.memo(Blog);
