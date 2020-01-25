@@ -55,7 +55,7 @@ const NavbarComponent=(props)=>
                 <Navbar.Brand>
                     <Link to="/" className="text-dark">
                         <i className="chess king icon iconh text-dark"></i>
-                        TheZalophusBlog
+                        TheDust
                     </Link>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
