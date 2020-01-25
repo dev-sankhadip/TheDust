@@ -8,6 +8,7 @@ const graphqlResolvers=require('./graphql/resolvers/rootResolver');
 
 //get jsonwebtoken auth checking module
 const isAuth=require('./middleware/is-auth');
+const { key }=require('./key');
 
 //initialize express
 const app = express();
@@ -40,7 +41,7 @@ app.use(
 
 
 //connect to mongo database
-mongoose.connect("mongodb://localhost:27017/thezalophusblog",{ useNewUrlParser:true, useUnifiedTopology:true })
+mongoose.connect(key,{ useNewUrlParser:true, useUnifiedTopology:true })
 .then((res)=>
 {
     console.log('mongodb connected');

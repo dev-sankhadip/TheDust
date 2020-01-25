@@ -57,7 +57,7 @@ const ProfileView=(props)=>
                 <Col span={10}></Col>
                 <Col span={8} style={{ marginTop:15 }}>
                     <h3>{ fname.charAt(0).toUpperCase()+fname.slice(1) } { lname.charAt(0).toUpperCase()+lname.slice(1) }</h3>
-                    <h5>{ userDetails.description }</h5>
+                    <h5>{ userDetails.description==='null' ? 'No description' : userDetails.description }</h5>
                     { isUser ? <button className="btn btn-primary" onClick={()=>{ props.history.push(`/edit/${userDetails.username}`) }}>EDIT</button> : null }
                 </Col>
                 <Col span={5} style={{ marginTop:15, marginRight:15 }}>
