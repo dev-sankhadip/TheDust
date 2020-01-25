@@ -77,7 +77,6 @@ module.exports = {
           const requestedUserName=args.RandomUserInput.username;
           return User.findOne({ username:requestedUserName })
           .then((res)=>{
-            console.log(res);
             return res;
           }).catch((err)=>{
             console.log(err);
