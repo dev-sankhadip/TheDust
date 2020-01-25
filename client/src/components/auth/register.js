@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './Auth.css';
+import { Input, Typography, Button, DatePicker } from 'antd'
+
 
 class Register extends Component {
   state = {
@@ -9,7 +11,9 @@ class Register extends Component {
     lname:'',
     username:'',
     dpas:'',
-    birthDate:''
+    birthDate:'',
+    email:'',
+    password:''
   };
 
   constructor(props) {
@@ -19,19 +23,15 @@ class Register extends Component {
   }
 
   updateInfo=(e)=>{
+    console.log(e.target.name);
+    console.log(e.target.value);
     this.setState({ [e.target.name]:e.target.value })
   }
 
   submitHandler = event => {
     event.preventDefault();
-    const email = this.emailEl.current.value;
-    const password = this.passwordEl.current.value;
 
-    if (email.trim().length === 0 || password.trim().length === 0) {
-      return;
-    }
-
-    const { fname, lname,username,image, dpas, birthDate }=this.state;
+    const { fname, lname,username,image, dpas, birthDate, password, email }=this.state;
     if(dpas!==password){
         return;
     }
@@ -100,51 +100,38 @@ class Register extends Component {
     return (
       <>
         <form className="auth-form" onSubmit={this.submitHandler}>
-            <div className="form-control">
-                <label htmlFor="fname">First Name</label>
-                <input type="text" id="fname" name="fname" onChange={this.updateInfo} required />
-            </div>
+          <Typography.Title level="3" underline={true} type="secondary">Signup</Typography.Title>
+          <div style={{ marginTop:10 }}>
+            <Input placeholder="Your first name" required onChange={ this.updateInfo } name="fname" />
+          </div>
+          <div style={{ marginTop:10 }}>
+            <Input placeholder="Your Last name" required onChange={ this.updateInfo } name="lname" />
+          </div>
+          <div style={{ marginTop:10 }}>
+            <Input placeholder="Your Username" required onChange={ this.updateInfo } name="username" />
+          </div>
+          <div style={{ marginTop:10 }}>
+            <Input placeholder="Your Email" required onChange={this.updateInfo} name="email" />
+          </div>
 
-            <div className="form-control mt-1">
-                <label htmlFor="lname">Last Name</label>
-                <input type="text" id="lname" name="lname" onChange={this.updateInfo} required />
-            </div>
+          <div style={{ marginTop:10 }}>
+            <Input placeholder="Your Password" required onChange={this.updateInfo} name="password" required />
+          </div>
 
-            <div className="form-control mt-1">
-                <label htmlFor="uname">User Name</label>
-                <input type="text" id="uname" name="username" onChange={this.updateInfo} required />
-            </div>
-
-
-            <div className="form-control mt-1">
-                <label htmlFor="email">E-Mail</label>
-                <input type="email" id="email" ref={this.emailEl} required />
-            </div>
-            
-            <div className="form-control mt-1">
-                <label htmlFor="password">Password</label>
-                <input type="password" id="password" ref={this.passwordEl} required />
-            </div>
-
-
-            <div className="form-control mt-1">
-                <label htmlFor="dpassword">Confirm Password</label>
-                <input type="password" id="dpassword" name="dpas" onChange={this.updateInfo} required />
-            </div>
+          <div style={{ marginTop:10 }}>
+            <Input placeholder="Confirm Password" required onChange={ this.updateInfo } name="dpas" />
+          </div>
           
-            <div className="custom-file">
-                <input type="file" className="custom-file-input" id="customFile" onChange={ this.uploadFile } required />
-                <label className="custom-file-label" htmlFor="customFile">Choose file</label>
-            </div>
-
-
-            <div className="form-control mt-2">
-                <label htmlFor="bday"></label>
-                <input type="date" id="bday" name="birthDate" required onChange={this.updateInfo} />
-            </div>
-
-          <div className="form-actions">
-            <button type="submit" className="btn btn-sm btn-warning">Signup</button>
+          <div className="custom-file" style={{ marginTop:10 }}>
+              <input type="file" className="custom-file-input" id="customFile" onChange={ this.uploadFile } required />
+              <label className="custom-file-label" htmlFor="customFile">Choose file</label>
+          </div>
+          <div className="form-control mt-2">
+            <label htmlFor="bday"></label>
+            <input type="date" id="bday" name="birthDate" required onChange={this.updateInfo} />
+          </div>
+          <div style={{ marginTop:10 }}>
+            <Button type="primary" onClick={ this.submitHandler }>Signup</Button>
           </div>
         </form>
       </>
