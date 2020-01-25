@@ -31,18 +31,9 @@ class App extends Component {
             <main className="main-content">
               <NavbarComponent isLoggedin={ this.state.isLoggedin } changeState={ this.changeState } />
               <Switch>
-                {/* <Route exact path="/" render={props=>(
-                  this.state.isLoggedin===true ? <Redirect to="/home"/> : ( this.state.isLoggedin===false ? <AuthPage {...props} /> : null )  
-                )} />
-                <Route path="/home" render={props=>(
-                  this.state.isLoggedin===true ? <Homepage {...props} /> : (this.state.isLoggedin===false ? <Redirect to="/" /> : null )
-                )} /> */}
                 <Route exact path="/" render={props=>(
                   <Homepage {...props} changeState={ this.changeState } />
                 )} />
-                {/* <Route path="/signup" render={props=>(
-                  this.state.isLoggedin===true ? <Redirect to="/" /> : ( this.state.isLoggedin===false ? <AuthPage {...props} changeState={ this.changeState } /> : null )
-                )} /> */}
                 <Route path="/new" render={props=>(
                   this.state.isLoggedin===true ? <CreateBlogForm {...props} /> : (this.state.isLoggedin===false ? <Redirect to="/login" /> : null )
                 )} />

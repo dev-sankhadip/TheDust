@@ -69,7 +69,7 @@ const Login=(props)=>{
                 <Input placeholder="Your Password" required onChange={(e)=>{ setInfo(setPassword,e) }} />
               </div>
               <div style={{ marginTop:10 }}>
-                <Button type="primary">Login</Button>
+                <Button type="primary" onClick={ submit }>Login</Button>
               </div>
             </form>
         </React.Fragment>
