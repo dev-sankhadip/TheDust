@@ -16,6 +16,7 @@ const app = express();
 //set all middleware
 app.use(express.json({ limit:'10mb' }));
 app.use(express.urlencoded({ extended: true, limit:'10mb' }));
+app.use(express.static('build'));
 app.use(isAuth);
 
 //allow header and options method
@@ -37,7 +38,6 @@ app.use(
     graphiql: true
   })
 );
-
 
 
 //connect to mongo database
