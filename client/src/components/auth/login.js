@@ -1,5 +1,7 @@
 import React,{ useState } from 'react';
 import './Auth.css';
+import { Input, Button, Divider, Typography } from 'antd';
+
 
 const Login=(props)=>{
 
@@ -59,16 +61,26 @@ const Login=(props)=>{
     return(
         <React.Fragment>
             <form onSubmit={ submit } className="auth-form">
-                <div className="form-control mt-1">
+              <Typography.Title type="secondary" underline={true} level="3">Login</Typography.Title>
+              <div style={{ marginTop:10 }}>
+                <Input placeholder="Your Email" required onChange={(e)=>{ setInfo(setEmail,e) }} />
+              </div>
+              <div style={{ marginTop:10 }}>
+                <Input placeholder="Your Password" required onChange={(e)=>{ setInfo(setPassword,e) }} />
+              </div>
+                {/* <div className="form-control mt-1">
                     <label htmlFor="email">E-Mail</label>
                     <input type="email" id="email" required onChange={(e)=>{ setInfo(setEmail,e) }} />
-                </div>
-                <div className="form-control mt-1">
+                </div> */}
+                {/* <div className="form-control mt-1">
                     <label htmlFor="password">Password</label>
                     <input type="password" id="password" required onChange={(e)=>{ setInfo(setPassword,e) }} />
-                </div>
-                <div className="form-actions">
+                </div> */}
+                {/* <div className="form-actions">
                 <button className="btn btn-sm btn-warning">Login</button>
+                </div> */}
+                <div style={{ marginTop:10 }}>
+                  <Button type="primary">Login</Button>
                 </div>
             </form>
         </React.Fragment>
