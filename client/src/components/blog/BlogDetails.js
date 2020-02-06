@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Row, Col } from 'antd'
+import { Avatar, Row, Col, Button } from 'antd'
 import { Link } from 'react-router-dom'
 
 class Blog extends React.Component
@@ -71,7 +71,7 @@ class Blog extends React.Component
                                 <img src={ this.state.userimage } style={{ width:40, height:40, borderRadius:50 }} />
                             </Col>
                             <Col span={22}>
-                                <Link style={{ fontSize:15, fontWeight:'lighter', marginLeft:0, marginTop:0 }}>{ username.charAt(0).toUpperCase()+username.substring(1,username.length) }</Link>
+                                <Link to={'/'+username} style={{ fontSize:15, fontWeight:'lighter', marginLeft:0, marginTop:0 }}>{ username.charAt(0).toUpperCase()+username.substring(1,username.length) }</Link>
                                 <p style={{ fontSize:10, fontWeight:'lighter',marginLeft:0 }}>Posted on { this.state.created }</p>
                             </Col>
                         </Row>
@@ -79,14 +79,12 @@ class Blog extends React.Component
                     <div class="ui top attached">
                         <div class="item">
                             <img class="ui centered rounded image showIm" src={ this.state.blogimage } />
-                            <div class="description" style={{ marginTop:5 }}>
+                            <div class="description" style={{ marginTop:15 }}>
                                 <p>{ this.state.body }</p>
                             </div>
                         </div>
-                        <a class="ui orange basic button" href="" style={{ marginTop:5 }}>Edit</a>
-                        <form class="delete" method="POST" style={{ marginTop:5 }}>
-                            <button class="ui red inverted button">DELETE</button>
-                        </form>
+                        <Button type="primary" style={{ marginTop:5 }}>Edit</Button>
+                        <Button type="danger" style={{ marginTop:5, marginLeft:5 }}>Delete</Button>
                     </div>
                 </div>
             </React.Fragment>

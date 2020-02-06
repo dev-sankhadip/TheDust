@@ -69,7 +69,6 @@ module.exports={
                 data.userid=userid;
                 return {...data};
             })
-            // return {...blog._doc, _id:blog.id}
         })
         .catch((err)=>
         {
