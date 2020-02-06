@@ -74,5 +74,8 @@ module.exports={
         {
             console.log(err);
         })
+    },
+    updateBlog: async (args, request)=>{
+        console.log(args);
     }
 }

@@ -100,7 +100,7 @@ class Register extends Component {
     return (
       <>
         <form className="auth-form" onSubmit={this.submitHandler}>
-          <Typography.Title level="3" underline={true} type="secondary">Signup</Typography.Title>
+          <Typography.Title level={3} underline={true} type="secondary">Signup</Typography.Title>
           <div style={{ marginTop:10 }}>
             <Input placeholder="Your first name" required onChange={ this.updateInfo } name="fname" />
           </div>

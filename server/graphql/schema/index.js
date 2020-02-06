@@ -72,6 +72,13 @@ const schema=buildSchema(`
         image:String!
     }
 
+    input UpdateBlog {
+        blogid:ID!
+        title:String!
+        blogimage:String!
+        body:String!
+    }
+
     input RandomUserInput {
         username:String!
     }
@@ -103,6 +110,7 @@ const schema=buildSchema(`
         checkAuth(uid:ID) : String
         updateInfo(UpdateInput:UpdateInput) : String
         getRandomUserDetails(RandomUserInput:RandomUserInput):UserDetails
+        updateBlog(UpdateBlog:UpdateBlog) : String
     }
 
     schema {

@@ -61,7 +61,7 @@ const Login=(props)=>{
     return(
         <React.Fragment>
             <form onSubmit={ submit } className="auth-form">
-              <Typography.Title type="secondary" underline={true} level="3">Login</Typography.Title>
+              <Typography.Title type="secondary" underline={true} level={3}>Login</Typography.Title>
               <div style={{ marginTop:10 }}>
                 <Input placeholder="Your Email" required onChange={(e)=>{ setInfo(setEmail,e) }} />
               </div>

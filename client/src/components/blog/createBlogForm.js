@@ -1,5 +1,7 @@
 import React,{ useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom'
+import { Button } from 'antd'
+
 
 const CreateBlogForm=(props)=>
 {
@@ -46,10 +48,21 @@ const CreateBlogForm=(props)=>
                 }
             })
             .then((res)=>{ return res.json(); })
-            .then((res)=>{ console.log(res); })
+            .then((res)=>{
+                const { title, blogimage, body }=res.data.getBlogs;
+                setTitle(title);
+                setImageUrl(blogimage);
+                setBlogBody(body);
+            })
             .catch((err)=>{ console.log(err); })
         }
     },[])
+
+
+    const updateBlog=()=>
+    {
+        
+    }
 
     //upload blog details to server
     const upload=(e)=>{
@@ -95,17 +108,18 @@ const CreateBlogForm=(props)=>
             <form className="ui form" onSubmit={ upload }>
                 <div className="field">
                     <label>Title</label>
-                    <input type="text" placeholder="title" onChange={(e)=>{handleChange(e, setTitle)}} required/>
+                    <input type="text" value={title} placeholder="title" onChange={(e)=>{handleChange(e, setTitle)}} required/>
                 </div>
                 <div className="field">
                     <label>Image</label>
-                    <input type="text" placeholder="image" onChange={(e)=>{ handleChange(e, setImageUrl) }} />
+                    <input type="text" value={imageUrl} placeholder="image" onChange={(e)=>{ handleChange(e, setImageUrl) }} />
                 </div>
                 <div className="field">
                         <label>Blog Content</label>
-                        <textarea required onChange={(e)=>{ handleChange(e, setBlogBody) }}></textarea>
+                        <textarea required value={blogBody} onChange={(e)=>{ handleChange(e, setBlogBody) }}></textarea>
                 </div>
-                <input className="ui violet inverted button" type="submit"/>
+                {/* <input className="ui violet inverted button" type="submit"/> */}
+                { isUpdate ? <Button type="primary" onClick={ updateBlog }>Update</Button> : <Button type="primary">Submit</Button> }
             </form>
         </div>
         </>

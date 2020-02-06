@@ -80,8 +80,8 @@ class Blog extends React.Component
         const { username }=this.state;
         return(
             <React.Fragment>
-                <div class="ui main text container segment">
-                    <div class="ui header" style={{ }}>
+                <div className="ui main text container segment">
+                    <div className="ui header" style={{ }}>
                         {/* <Avatar src={this.state.userimage} size="large" /> */}
                         <Row>
                             <Col span={2}>
@@ -93,10 +93,10 @@ class Blog extends React.Component
                             </Col>
                         </Row>
                     </div>
-                    <div class="ui top attached">
-                        <div class="item">
-                            <img class="ui centered rounded image showIm" src={ this.state.blogimage } />
-                            <div class="description" style={{ marginTop:15 }}>
+                    <div className="ui top attached">
+                        <div className="item">
+                            <img className="ui centered rounded image showIm" src={ this.state.blogimage } />
+                            <div className="description" style={{ marginTop:15 }}>
                                 <p>{ this.state.body }</p>
                             </div>
                         </div>
