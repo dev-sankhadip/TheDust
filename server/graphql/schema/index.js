@@ -1,5 +1,4 @@
 const { buildSchema }=require('graphql');
-const { gql } =require('apollo-server-express')
 
 
 const schema=buildSchema(`
@@ -34,6 +33,18 @@ const schema=buildSchema(`
         body:String!
         creator:String!
         created:String!
+    }
+
+    type BlogDetails {
+        blogid:ID!
+        title:String!
+        blogimage:String!
+        body:String!
+        creator:String!
+        created:String!
+        userimage:String!
+        username:String!
+        userid:ID!
     }
 
     type File {
@@ -83,6 +94,7 @@ const schema=buildSchema(`
         login(email: String!, password: String!): AuthData!
         getAllBlogs:[Blog!]!
         getUserDetails:UserDetails!
+        getBlogs(blogid:String!): BlogDetails!
     }
 
     type RootMutation {

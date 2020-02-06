@@ -69,8 +69,7 @@ const Homepage=(props)=>
   },[])
   return(
     <>
-    {/* <NavbarComponent props={ props } /> */}
-    <Blog blogs={ blogs } />
+      <Blog blogs={ blogs } />
     </>
   )
 }

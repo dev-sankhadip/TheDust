@@ -10,6 +10,8 @@ import Login from './components/auth/login';
 import Register from './components/auth/register';
 import Profile from './components/profile/profileEdit';
 import ProfileView from './components/profile/profileView';
+import Blog from './components/blog/BlogDetails';
+
 
 class App extends Component {
   state={
@@ -36,6 +38,9 @@ class App extends Component {
                 )} />
                 <Route path="/new" render={props=>(
                   this.state.isLoggedin===true ? <CreateBlogForm {...props} /> : (this.state.isLoggedin===false ? <Redirect to="/login" /> : null )
+                )} />
+                <Route path="/blog/:blogid" render={props=>(
+                  <Blog  {...props} />
                 )} />
                 <Route path="/login" render={props=>(
                   this.state.isLoggedin===true ? <Redirect to='/' /> : ( this.state.isLoggedin===false ? <Login {...props} changeState={ this.changeState } /> : null )

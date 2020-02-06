@@ -1,4 +1,6 @@
 const BlogModel=require('../../models/blog');
+const UserModel=require('../../models/user');
+
 
 module.exports={
     blogs:async (args, request)=>{
@@ -41,6 +43,36 @@ module.exports={
                 return {...blog._doc, _id:blog.id};
             })
         }).catch((err)=>{
+            console.log(err);
+        })
+    },
+    getBlogs: async (args, request)=>{
+        console.log(args);
+        return BlogModel.findById(args.blogid)
+        .then((blog)=>
+        {
+            console.log(blog);
+            return UserModel.findById(blog.creator)
+            .then((user)=>
+            {
+                const { _id:blogid, title, image:blogimage, body, creator, created }=blog;
+                const { _id:userid, username, image:userimage }=user;
+                let data={};
+                data.blogid=blogid;
+                data.title=title;
+                data.blogimage=blogimage;
+                data.body=body;
+                data.creator=creator;
+                data.created=created;
+                data.username=username;
+                data.userimage=userimage;
+                data.userid=userid;
+                return {...data};
+            })
+            // return {...blog._doc, _id:blog.id}
+        })
+        .catch((err)=>
+        {
             console.log(err);
         })
     }

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
+import { Spin, Icon } from 'antd';
 
 const Blog=(props)=>
 {
     console.log(props);
     const { blogs }=props;
+    const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
     const blogsView=blogs.length>0 ? blogs.map((item, i)=>{
         return(
             <div className="ui main text container mt-4" key={ i }>
@@ -34,7 +36,11 @@ const Blog=(props)=>
                 </div>
             </div>
         )
-    }) : <p>No blogs posted yet</p>
+    }) : <div className="ui main text container mt-4">
+            <div className="ui top attached segment">
+                <Spin indicator={antIcon} />
+            </div>
+        </div>
     return(
         <React.Fragment>
             { blogsView }
