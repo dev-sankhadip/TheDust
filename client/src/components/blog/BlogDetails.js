@@ -1,11 +1,13 @@
 import React from 'react'
-import { Avatar, Row, Col, Button } from 'antd'
+import { Row, Col, Button } from 'antd'
 import { Link } from 'react-router-dom'
+// import CheckAuth from '../auth/checkAuth'
 
 class Blog extends React.Component
 {
 
     state={
+        blogid:'',
         title:'',
         blogimage:'',
         body:'',
@@ -13,12 +15,26 @@ class Blog extends React.Component
         created:'',
         userimage:'',
         username:'',
-        userid:''
+        userid:'',
+        isUser:null
+    }
+
+
+    checkAuthentication=()=>
+    {
+        const uid=localStorage.getItem('uid');
+        if(uid==this.state.creator)
+        {
+            this.setState({ isUser:true })
+        }
+        else
+        {
+            this.setState({ isUser:false })
+        }
     }
 
     componentDidMount()
     {
-        console.log(this.props.match.params.blogid);
         const { blogid }=this.props.match.params;
         let requestBody = {
             query: `
@@ -51,8 +67,9 @@ class Blog extends React.Component
         })
         .then(res=>{
             console.log(res);
-            const { title, blogimage, body, creator, created, userimage, username, userid }=res.data.getBlogs;
-            this.setState({ title, blogimage, body, creator, created, userimage, username, userid });
+            const { blogid, title, blogimage, body, creator, created, userimage, username, userid }=res.data.getBlogs;
+            this.setState({blogid, title, blogimage, body, creator, created, userimage, username, userid });
+            this.checkAuthentication()
         })
         .catch(err=>{
             console.log(err);
@@ -83,8 +100,10 @@ class Blog extends React.Component
                                 <p>{ this.state.body }</p>
                             </div>
                         </div>
-                        <Button type="primary" style={{ marginTop:5 }}>Edit</Button>
-                        <Button type="danger" style={{ marginTop:5, marginLeft:5 }}>Delete</Button>
+                        <div style={{ display:this.state.isUser ? 'inline' : 'none' }}>
+                            <Button type="primary" style={{ marginTop:5 }}><Link to={'/edit/blog/'+this.state.blogid}>Edit</Link></Button>
+                            <Button type="danger" style={{ marginTop:5, marginLeft:5 }}>Delete</Button>
+                        </div>
                     </div>
                 </div>
             </React.Fragment>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Auth.css';
-import { Input, Typography, Button, DatePicker } from 'antd'
+import { Input, Typography, Button } from 'antd'
 
 
 class Register extends Component {

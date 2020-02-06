@@ -48,6 +48,9 @@ class App extends Component {
                 <Route path="/signup" render={props=>(
                   this.state.isLoggedin===true ? <Redirect to='/' /> : ( this.state.isLoggedin===false ? <Register { ...props } /> : null )
                 )} />
+                <Route path="/edit/blog/:blogid" render={props=>(
+                  this.state.isLoggedin===true ? <CreateBlogForm {...props} /> : ( this.state.isLoggedin===false ? <Redirect to="/login" /> : null )
+                )} />
                 <Route path="/edit/:username" render={props=>(
                   this.state.isLoggedin===true ? <Profile {...props} /> : (this.state.isLoggedin===false ? <Redirect to="/login" /> : null )
                 )} />

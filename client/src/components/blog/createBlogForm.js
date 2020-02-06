@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom'
 
 const CreateBlogForm=(props)=>
@@ -6,11 +6,50 @@ const CreateBlogForm=(props)=>
     const [ title, setTitle ]=useState('');
     const [ imageUrl, setImageUrl ]=useState('');
     const [ blogBody, setBlogBody ]=useState('');
+    const [ isUpdate, setIsUpdate ]=useState(false);
+    const [ blogId, setBlogId ]=useState('');
 
     //set all the current value
     const handleChange=(e, setter)=>{
         setter(e.target.value);
     }
+
+    useEffect(()=>
+    {
+        if(props.match.path.search("/edit/blog/")>-1)
+        {
+            const { blogid }=props.match.params;
+            setIsUpdate(true);
+            setBlogId(blogid);
+            let requestBody = {
+                query: `
+                  query {
+                    getBlogs(blogid: "${blogid}") {
+                        blogid
+                        title
+                        blogimage
+                        body
+                        creator
+                        created
+                        userimage
+                        username
+                        userid
+                    }
+                  }
+                `
+            };
+            fetch('http://localhost:8000/graphql',{
+                method:"POST",
+                body:JSON.stringify(requestBody),
+                headers:{
+                    'Content-Type':'application/json'
+                }
+            })
+            .then((res)=>{ return res.json(); })
+            .then((res)=>{ console.log(res); })
+            .catch((err)=>{ console.log(err); })
+        }
+    },[])
 
     //upload blog details to server
     const upload=(e)=>{
@@ -51,7 +90,6 @@ const CreateBlogForm=(props)=>
 
     return(
         <>
-        {/* <NavbarComponent props={ props } /> */}
         <div className="ui main text container segment mt-5">
             <div className="ui huge header">NEW BLOG</div>
             <form className="ui form" onSubmit={ upload }>
