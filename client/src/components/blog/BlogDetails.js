@@ -1,7 +1,6 @@
 import React from 'react'
 import { Row, Col, Button } from 'antd'
 import { Link } from 'react-router-dom'
-// import CheckAuth from '../auth/checkAuth'
 
 class Blog extends React.Component
 {
@@ -16,7 +15,16 @@ class Blog extends React.Component
         userimage:'',
         username:'',
         userid:'',
-        isUser:null
+        isUser:null,
+        isReaction:false,
+        reactIcon:[
+            'like.jpeg',
+            'love.png',
+            'wow.png',
+            'angry.png',
+            'sad.png'
+        ],
+        likeIconURL:'like.png'
     }
 
 
@@ -62,11 +70,9 @@ class Blog extends React.Component
             }
         })
         .then(res => {
-            // console.log(res);
             return res.json();
         })
         .then(res=>{
-            // console.log(res);
             const { blogid, title, blogimage, body, creator, created, userimage, username, userid }=res.data.getBlogs;
             this.setState({blogid, title, blogimage, body, creator, created, userimage, username, userid });
             this.checkAuthentication()
@@ -107,17 +113,47 @@ class Blog extends React.Component
         })
     }
 
+    showReaction=(e)=>
+    {
+        e.stopPropagation();
+        const audio=document.createElement("audio");
+        audio.src="http://localhost:8000/popup.MP3";
+        audio.play();
+        this.setState({ isReaction:!this.state.isReaction });
+    }
+
+    setReaction=(iconURL)=>
+    {
+        this.setState({ 
+            likeIconURL:iconURL 
+        },()=>
+        {
+            this.setState({ isReaction:false })
+        })
+    }
+
     render()
     {
         const { username }=this.state;
+        const reactIconView=this.state.reactIcon.map((icon)=>
+        {
+            return(
+                <img 
+                src={'http://localhost:8000/'+icon} 
+                style={{ float:'left', marginTop:5, width:30, height:30, marginLeft:5 }}
+                onClick={()=>{ this.setReaction(icon) }}
+                />
+            )
+        })
         return(
             <React.Fragment>
                 <div className="ui main text container segment">
                     <div className="ui header" style={{ }}>
-                        {/* <Avatar src={this.state.userimage} size="large" /> */}
                         <Row>
                             <Col span={2}>
-                                <img src={ this.state.userimage } style={{ width:40, height:40, borderRadius:50 }} alt="User" />
+                                <Link to={'/'+username}>
+                                    <img src={ this.state.userimage } style={{ width:40, height:40, borderRadius:50 }} alt="User" />
+                                </Link>
                             </Col>
                             <Col span={22}>
                                 <Link to={'/'+username} style={{ fontSize:15, fontWeight:'lighter', marginLeft:0, marginTop:0 }}>{ username.charAt(0).toUpperCase()+username.substring(1,username.length) }</Link>
@@ -132,10 +168,30 @@ class Blog extends React.Component
                                 <p>{ this.state.body }</p>
                             </div>
                         </div>
-                        <div style={{ display:this.state.isUser ? 'inline' : 'none' }}>
-                            <Button type="primary" style={{ marginTop:5 }}><Link to={'/edit/blog/'+this.state.blogid}>Edit</Link></Button>
-                            <Button type="danger" style={{ marginTop:5, marginLeft:5 }} onClick={ this.deleteBlog }>Delete</Button>
-                        </div>
+                        <Row>
+                            <Col span={16}>
+                                <div style={{ display:this.state.isUser ? 'inline' : 'none' }}>
+                                    <Button type="primary" style={{ marginTop:5, }}><Link to={'/edit/blog/'+this.state.blogid}>Edit</Link></Button>
+                                    <Button type="danger" style={{ marginTop:5, marginLeft:5 }} onClick={ this.deleteBlog }>Delete</Button>
+                                </div>
+                            </Col>
+                            <Col span={8} style={{ display:this.state.isUser ? 'inline' : 'none' }}>
+                                <div style={{ display:this.state.isReaction ? 'inline' : 'none' }}>
+                                    { reactIconView }
+                                    {/* <img src="http://localhost:8000/like.jpeg" style={{ float:'left', marginTop:5, width:30, height:30, marginLeft:5 }} />
+                                    <img src="http://localhost:8000/love.png" style={{ float:'left', marginTop:5, width:30, height:30,marginLeft:5 }} />
+                                    <img src="http://localhost:8000/angry.png" style={{ float:'left', marginTop:5, width:30, height:30, marginLeft:5 }} />
+                                    <img src="http://localhost:8000/wow.png" style={{ float:'left', marginTop:5, width:30, height:30, marginLeft:5 }} />
+                                    <img src="http://localhost:8000/sad.png" style={{ float:'left', marginTop:5, width:30, height:30, marginLeft:5 }} /> */}
+                                </div>
+                                <div style={{ marginLeft:10 }} onClick={ this.showReaction }>
+                                    <img style={{ float:'right', marginTop:5, width:30, height:30 }} 
+                                    src={"http://localhost:8000/"+this.state.likeIconURL}
+                                    id="reaction"
+                                    />
+                                </div>
+                            </Col>
+                        </Row>
                     </div>
                 </div>
             </React.Fragment>

@@ -22,8 +22,9 @@ const CheckAuth=()=>{
         }).then((res)=>{
             if(res.errors && res.errors[0].message==="Unauthenticated"){
                 console.log("Error");
+                localStorage.removeItem("uid");
+                localStorage.removeItem("token");
                 reject();
-                // window.location.href="/";
             }else{
                 resolve();
             }
