@@ -84,5 +84,18 @@ module.exports={
         {
             throw new Error("Error in server");
         })
+    },
+    deleteBlog: async (args, request)=>{
+        const { blogid }=args;
+        return BlogModel.findByIdAndDelete(blogid)
+        .then((res)=>
+        {
+            return "deleted";
+        })
+        .catch((err)=>
+        {
+            console.log(err);
+            throw new Error("Server error");
+        })
     }
 }

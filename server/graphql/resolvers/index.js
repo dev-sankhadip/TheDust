@@ -61,7 +61,6 @@ module.exports = {
           })
         },
         updateInfo: async (args, request)=>{
-          // console.log(args);
           const { userId }=request;
           const { fname, lname, username, email, description, image }=args.UpdateInput;
           return User.findByIdAndUpdate(userId,{ fname, lname, username, email, description, image })

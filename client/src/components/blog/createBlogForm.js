@@ -62,7 +62,7 @@ const CreateBlogForm=(props)=>
 
     const updateBlog=()=>
     {
-        if(title=="" || imageUrl=="" || blogBody=="")
+        if(title==="" || imageUrl==="" || blogBody==="")
         {
             alert("Fill up all fields");
         }
@@ -127,7 +127,7 @@ const CreateBlogForm=(props)=>
             }
 
             //else redirect user to home route to see created blogs
-            props.history.push("/home");
+            props.history.push("/");
         }).catch((err)=>{
             console.log(err);
         })
@@ -151,7 +151,7 @@ const CreateBlogForm=(props)=>
                         <textarea required value={blogBody} onChange={(e)=>{ handleChange(e, setBlogBody) }}></textarea>
                 </div>
                 {/* <input className="ui violet inverted button" type="submit"/> */}
-                { isUpdate ? <Button type="primary" onClick={ updateBlog }>Update</Button> : <Button type="primary">Submit</Button> }
+                { isUpdate ? <Button type="primary" onClick={ updateBlog }>Update</Button> : <Button type="primary" onClick={ upload }>Submit</Button> }
             </form>
         </div>
         </>

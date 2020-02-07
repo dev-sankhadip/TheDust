@@ -23,7 +23,7 @@ class Blog extends React.Component
     checkAuthentication=()=>
     {
         const uid=localStorage.getItem('uid');
-        if(uid==this.state.creator)
+        if(uid===this.state.creator)
         {
             this.setState({ isUser:true })
         }
@@ -62,11 +62,11 @@ class Blog extends React.Component
             }
         })
         .then(res => {
-            console.log(res);
+            // console.log(res);
             return res.json();
         })
         .then(res=>{
-            console.log(res);
+            // console.log(res);
             const { blogid, title, blogimage, body, creator, created, userimage, username, userid }=res.data.getBlogs;
             this.setState({blogid, title, blogimage, body, creator, created, userimage, username, userid });
             this.checkAuthentication()
@@ -80,6 +80,31 @@ class Blog extends React.Component
     {
         const { blogid }=this.props.match.params;
         console.log(blogid);
+        let requestBody = {
+            query: `
+              query {
+                deleteBlog(blogid: "${blogid}")
+              }
+            `
+        };
+        fetch('http://localhost:8000/graphql',{
+            method:"POST",
+            body:JSON.stringify(requestBody),
+            headers:{
+                'Content-Type':'application/json',
+                'Accept':'application/json'
+            }
+        })
+        .then((res)=>{ return res.json() })
+        .then((res)=>{
+            console.log(res);
+            this.props.history.push('/');
+        })
+        .catch((err)=>
+        {
+            console.log(err);
+            alert("Internal server error");
+        })
     }
 
     render()
@@ -92,7 +117,7 @@ class Blog extends React.Component
                         {/* <Avatar src={this.state.userimage} size="large" /> */}
                         <Row>
                             <Col span={2}>
-                                <img src={ this.state.userimage } style={{ width:40, height:40, borderRadius:50 }} />
+                                <img src={ this.state.userimage } style={{ width:40, height:40, borderRadius:50 }} alt="User" />
                             </Col>
                             <Col span={22}>
                                 <Link to={'/'+username} style={{ fontSize:15, fontWeight:'lighter', marginLeft:0, marginTop:0 }}>{ username.charAt(0).toUpperCase()+username.substring(1,username.length) }</Link>
@@ -102,7 +127,7 @@ class Blog extends React.Component
                     </div>
                     <div className="ui top attached">
                         <div className="item">
-                            <img className="ui centered rounded image showIm" src={ this.state.blogimage } />
+                            <img className="ui centered rounded image showIm" src={ this.state.blogimage } alt="Blog" />
                             <div className="description" style={{ marginTop:15 }}>
                                 <p>{ this.state.body }</p>
                             </div>

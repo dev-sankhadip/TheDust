@@ -102,6 +102,7 @@ const schema=buildSchema(`
         getAllBlogs:[Blog!]!
         getUserDetails:UserDetails!
         getBlogs(blogid:String!): BlogDetails!
+        deleteBlog(blogid:ID!):String
     }
 
     type RootMutation {
