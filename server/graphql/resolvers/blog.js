@@ -47,11 +47,9 @@ module.exports={
         })
     },
     getBlogs: async (args, request)=>{
-        console.log(args);
         return BlogModel.findById(args.blogid)
         .then((blog)=>
         {
-            console.log(blog);
             return UserModel.findById(blog.creator)
             .then((user)=>
             {
@@ -76,6 +74,15 @@ module.exports={
         })
     },
     updateBlog: async (args, request)=>{
-        console.log(args);
+        const { blogid,title,blogimage, body }=args.UpdateBlog;
+        return BlogModel.findByIdAndUpdate(blogid,{ title, image:blogimage, body })
+        .then((res)=>
+        {
+            return "updated";
+        })
+        .catch((err)=>
+        {
+            throw new Error("Error in server");
+        })
     }
 }

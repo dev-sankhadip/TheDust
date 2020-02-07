@@ -44,7 +44,8 @@ const CreateBlogForm=(props)=>
                 method:"POST",
                 body:JSON.stringify(requestBody),
                 headers:{
-                    'Content-Type':'application/json'
+                    'Content-Type':'application/json',
+                    'Accept':'application/json'
                 }
             })
             .then((res)=>{ return res.json(); })
@@ -61,7 +62,38 @@ const CreateBlogForm=(props)=>
 
     const updateBlog=()=>
     {
-        
+        if(title=="" || imageUrl=="" || blogBody=="")
+        {
+            alert("Fill up all fields");
+        }
+        else
+        {
+            let requestBody = {
+                query: `
+                  mutation {
+                    updateBlog(UpdateBlog: { blogid:"${blogId}", title:"${title}", blogimage:"${imageUrl}", body: "${blogBody}"})
+                  }
+                `
+            };
+            fetch('http://localhost:8000/graphql',{
+                method:"POST",
+                body:JSON.stringify(requestBody),
+                headers:{
+                    'Content-Type':'application/json'
+                }
+            })
+            .then((res)=>{ return res.json() })
+            .then((res)=>
+            {
+                console.log(res);
+                props.history.push('/');
+            })
+            .catch((err)=>
+            {
+                console.log(err);
+                alert("Error");
+            })
+        }
     }
 
     //upload blog details to server

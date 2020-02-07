@@ -75,6 +75,13 @@ class Blog extends React.Component
             console.log(err);
         })
     }
+
+    deleteBlog=()=>
+    {
+        const { blogid }=this.props.match.params;
+        console.log(blogid);
+    }
+
     render()
     {
         const { username }=this.state;
@@ -102,7 +109,7 @@ class Blog extends React.Component
                         </div>
                         <div style={{ display:this.state.isUser ? 'inline' : 'none' }}>
                             <Button type="primary" style={{ marginTop:5 }}><Link to={'/edit/blog/'+this.state.blogid}>Edit</Link></Button>
-                            <Button type="danger" style={{ marginTop:5, marginLeft:5 }}>Delete</Button>
+                            <Button type="danger" style={{ marginTop:5, marginLeft:5 }} onClick={ this.deleteBlog }>Delete</Button>
                         </div>
                     </div>
                 </div>

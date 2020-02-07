@@ -41,7 +41,7 @@ app.use(
 
 
 //connect to mongo database
-mongoose.connect(key,{ useNewUrlParser:true, useUnifiedTopology:true })
+mongoose.connect(key,{ useNewUrlParser:true, useUnifiedTopology:true, useFindAndModify:false })
 .then((res)=>
 {
     console.log('mongodb connected');
